@@ -1,33 +1,96 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UCABAir</title>
-    <link rel="stylesheet" href="../estilos.css"> 
-</head>
-<body>
+    <link rel="stylesheet" href="../estilos.css" />
+    <style>
+      .not-fetched {
+        display: none;
+      }
+      .fetched {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
     <div class="container-login">
-        <div class="right">
-            <img id="logo" src="../imagenes/logo dark.png" width="200px" height="auto">
-            <div id="parrafos">
-                <p><i>"Este sistema nos ha ayudado a mejorar tremendamente nuestra productividad y eficiencia operativa"</i></p>
-                <p>Pedro Pérez - Director de Operaciones</p>
-            </div>
+      <div class="right">
+        <img
+          id="logo"
+          src="../imagenes/logo dark.png"
+          width="200px"
+          height="auto"
+        />
+        <div id="parrafos">
+          <p>
+            <i
+              >"Este sistema nos ha ayudado a mejorar tremendamente nuestra
+              productividad y eficiencia operativa"</i
+            >
+          </p>
+          <p>Pedro Pérez - Director de Operaciones</p>
         </div>
-        <div class="login">
-            <h2>Iniciar Sesión</h2>
-            <label>Ingresa tus datos abajo para iniciar sesión</label>
-            <form>
-                <div class="campo-log">
-                    <input type="text" id="username" name="username" placeholder="nombre@example.com">
-                </div>
-                <div class="campo-log">
-                    <input type="password" id="password" name="password" placeholder="contraseña">
-                </div>
-                <button class="buscar-btn" type="submit">Iniciar Sesión</button>
-            </form>
-        </div>
+      </div>
+      <div class="login">
+        <h2>Iniciar Sesión</h2>
+        <label>Ingresa tus datos abajo para iniciar sesión</label>
+        <form id="form">
+          <div class="campo-log">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="nombre@example.com"
+            />
+          </div>
+          <div class="campo-log">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="contraseña"
+            />
+          </div>
+          <button class="buscar-btn" type="submit">Iniciar Sesión</button>
+          <span id="loginSpan"></span>
+        </form>
+      </div>
     </div>
-</body>
+    <script>
+      //enviar la peticion post al presionar iniciar sesion
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        let username = document.querySelector("#username").value;
+        let password = document.querySelector("#password").value;
+        let loginSpan = document.querySelector("#loginSpan");
+        let data = {
+          username: username,
+          password: password,
+        };
+
+        fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => {
+            if (res.ok) {
+              loginSpan.innerText = "Sesion iniciada, entrando...";
+              loginSpan.style.color = "green";
+              setTimeout(() => {
+                window.location.href = "http://localhost:3000/inicio";
+              }, 2000);
+            } else {
+              loginSpan.innerText = "Usuario o contraseña incorrectos";
+              loginSpan.style.color = "red";
+            }
+          })
+          .catch((error) => console.log("Error:", error));
+      });
+    </script>
+  </body>
 </html>

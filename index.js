@@ -13,6 +13,8 @@ app.get('/', (req, res) => {
   res.send('<h1>Hello World</h1>')
 })
 
+app.get('/inicio', (req, res) => { })
+
 // app.get('/pepito', async (req, res) => {
 //   try {
 //     const result = await client.query('SELECT * FROM persona_natural LIMIT 10')
@@ -33,7 +35,6 @@ app.post('/login', async (req, res) => {
     const user = await userRepository.login(username, password)
     res.send(`Bienvenido/a ${user}`)
   } catch (err) {
-    console.log(err.message)
     res.status(401).send(err.message)
   }
 })
