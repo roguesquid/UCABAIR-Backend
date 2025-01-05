@@ -1,0 +1,110 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-postgres
+{
+  "name": "UCABAIR Node.js & PostgreSQL",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {},
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // This can be used to network with other containers or with the host.
+  "forwardPorts": [3000, 5432],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "pnpm install",
+
+  // Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      "settings": {
+        "colorize.include": ["**/*.css", "**/*.scss", "**/*.postcss"],
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "modifications",
+        "editor.formatOnPaste": true,
+        "editor.tabSize": 2,
+        "editor.linkedEditing": true,
+        "editor.quickSuggestions": {
+          "strings": true
+        },
+        "editor.wordWrap": "on",
+        "editor.cursorSmoothCaretAnimation": "on",
+        "editor.fontLigatures": true,
+        "explorer.fileNesting.enabled": true,
+        "explorer.fileNesting.patterns": {
+          ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*, commitlint.config.cjs,.versionrc",
+          ".env*": "*.env, .env.*, .envrc, env.d.ts",
+          ".eslintrc*": ".eslintignore",
+          ".prettierrc*": ".prettierignore, import-sorter.json",
+          "readme*": "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors*",
+          "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, pnpm-workspace.yaml, pnpm-debug.log, .npmrc",
+          "tsconfig.json": "tsconfig.*.json",
+          "svelte.config.*": "playwright.config.*, postcss.config.*, puppeteer.config.*, svgo.config.*, tailwind.config.*, tsdoc.*, vitest.config.*, webpack.config.*, windi.config.*, sequence.mjs, vite.config.ts",
+          "*.ts": "${capture}.js, ${capture}.d.ts.map, ${capture}.*.ts, ${capture}_*.js, ${capture}_*.ts",
+          "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+          "*.jsx": "${capture}.js",
+          "*.tsx": "${capture}.ts",
+          "*.svelte": "${capture}.ts",
+          "+layout.svelte": "+layout.ts,+layout.ts,+layout.js,+layout.server.ts,+layout.server.js",
+          "+page.svelte": "+page.server.ts,+page.server.js,+page.ts,+page.js "
+        },
+        "files.associations": {
+          "*.env.development": "dotenv",
+          "*.env.production": "dotenv",
+          "*.mdx": "markdown"
+        },
+        "files.autoSave": "onFocusChange",
+        "files.exclude": {
+          "**/node_modules": true,
+          "**/.pnpm-store": true,
+          "**/.docker": true,
+          "**/dist": true,
+          "**/build": true,
+          "**/.svelte-kit": true,
+          "**/.turbo": true,
+          "**/.history": true
+        },
+        "symbols.hidesExplorerArrows": false,
+        "editor.cursorBlinking": "expand",
+        "editor.guides.bracketPairs": true,
+        "breadcrumbs.enabled": false,
+        "editor.stickyScroll.enabled": true,
+        "oneDarkPro.bold": true,
+        "oneDarkPro.vivid": true,
+        "workbench.iconTheme": "symbols",
+        "workbench.colorTheme": "One Dark Pro Darker",
+        "workbench.productIconTheme": "fluent-icons",
+        "workbench.editor.empty.hint": "hidden",
+        "editor.inlineSuggest.enabled": true
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "dbaeumer.vscode-eslint",
+        "aaron-bond.better-comments",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "kamikillerto.vscode-colorize",
+        "mhutchie.git-graph",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.live-server",
+        "mutantdino.resourcemonitor",
+        "oderwat.indent-rainbow",
+        "zhuangtongfa.material-theme",
+        "miguelsolorio.symbols",
+        "miguelsolorio.fluent-icons",
+        "mgmcdermott.vscode-language-babel",
+        "usernamehw.errorlens",
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ]
+    }
+  }
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}
