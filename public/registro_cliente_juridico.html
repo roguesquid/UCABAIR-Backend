@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>UCABAir</title>
+    <link rel="stylesheet" href="./estilos.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="./comportamiento.js"></script>
+  </head>
+  <body>
+    <header>
+      <img id="logo" src="./imagenes/logo.png" width="200px" height="auto" />
+      <div class="usuario">
+        <button class="notificacion">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </button>
+        <img
+          id="foto-perfil"
+          src="./imagenes/koala vestido de ejecutivo.png"
+          width="50px"
+          height="auto"
+        />
+      </div>
+    </header>
+    <div class="sidebar">
+      <h2>Módulos</h2>
+      <nav class="navegacion">
+        <ul>
+          <li>
+            <a href="inicio.html">
+              <ion-icon name="home-outline"></ion-icon>
+              <span>Inicio</span>
+            </a>
+          </li>
+          <li>
+            <a href="inventario.html">
+              <ion-icon name="cube-outline"></ion-icon>
+              <span>Inventario</span>
+            </a>
+          </li>
+          <li>
+            <a href="ensamblaje.html">
+              <ion-icon name="hammer-outline"></ion-icon>
+              <span>Ensamblaje</span>
+            </a>
+          </li>
+          <li>
+            <a href="pruebas.html">
+              <ion-icon name="checkbox-outline"></ion-icon>
+              <span>Pruebas</span>
+            </a>
+          </li>
+          <li>
+            <a href="aviones.html">
+              <ion-icon name="airplane-outline"></ion-icon>
+              <span>Aviones</span>
+            </a>
+          </li>
+          <li>
+            <a href="ordenes y transporte.html">
+              <ion-icon name="paper-plane-outline"></ion-icon>
+              <span>Ordenes de Producción y Transporte</span>
+            </a>
+          </li>
+          <li>
+            <a href="clientes y proveedores.html">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>Clientes y Proveedores</span>
+            </a>
+          </li>
+          <li>
+            <a href="personal.html">
+              <ion-icon name="people-outline"></ion-icon>
+              <span>Personal</span>
+            </a>
+          </li>
+          <li>
+            <a href="reportes.html">
+              <ion-icon name="document-attach-outline"></ion-icon>
+              <span>Reportes</span>
+            </a>
+          </li>
+          <li>
+            <a href="roles y permisos.html">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Roles y Permisos</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="linea"></div>
+      <a id="logout" href="">
+        <ion-icon name="log-out-outline"></ion-icon>
+        <span>Sign out</span>
+      </a>
+    </div>
+    <main>
+      <div class="contenedor">
+        <h1>Registro Cliente Juridico</h1>
+        <form>
+          <div class="campo">
+            <label for="nombre">Usuario:</label>
+            <input
+              type="text"
+              id="usuario"
+              name="usuario"
+              maxlength="50"
+              required
+              placeholder="Ingresa usuario..."
+            />
+          </div>
+          <div class="campo">
+            <label for="contraseña">Contraseña:</label>
+            <input
+              type="password"
+              id="contraseña"
+              name="contraseña"
+              required
+              maxlength="50"
+              placeholder="Ingresa contraseña..."
+            />
+          </div>
+          <div class="campo">
+            <label for="razonSocial">Razon Social:</label>
+            <input
+              type="text"
+              id="razonSocial"
+              name="razonSocial"
+              maxlength="50"
+              required
+              placeholder="Ingresa Razon Social..."
+            />
+          </div>
+          <div class="campo">
+            <label for="pagina-web">Pagina Web:</label>
+            <input
+              type="text"
+              id="pagina-web"
+              name="pagina-web"
+              placeholder="www.example.com"
+              maxlength="50"
+            />
+          </div>
+          <div class="campo">
+            <label for="cedula">RIF:</label>
+            <input
+              required
+              maxlength="20"
+              type="text"
+              id="RIF"
+              name="RIF"
+              placeholder="Ingresa RIF..."
+            />
+          </div>
+          <div class="campo">
+            <label for="correo">Correo Electrónico:</label>
+            <input
+              required
+              type="email"
+              id="correo"
+              name="correo"
+              placeholder="example@example.com"
+            />
+          </div>
+          <div class="campo">
+            <label for="codigo-area">Codigo de Area:</label>
+            <input
+              required
+              pattern="[0-9]{4}"
+              type="number"
+              id="codigo-area"
+              name="codigo-area"
+              placeholder="0424"
+            />
+          </div>
+          <div class="campo">
+            <label for="telefono">Numero de tlf:</label>
+            <input
+              required
+              pattern="[0-9]{7}"
+              type="number"
+              id="telefono"
+              name="telefono"
+              placeholder="1234567"
+            />
+          </div>
+          <div class="campo">
+            <label for="direccion">Dirección Fiscal:</label>
+            <textarea
+              required
+              id="direcc-fiscal"
+              name="direcc-fiscal"
+              placeholder="Ingresa dirección..."
+            ></textarea>
+          </div>
+          <div class="campo">
+            <label for="estado">Estado: </label>
+            <select name="estado" id="estado"></select>
+          </div>
+          <div class="campo">
+            <label for="municipio">Municipio: </label>
+            <select disabled name="municipio" id="municipio"></select>
+          </div>
+          <div class="campo">
+            <label for="parroquia">Parroquia: </label>
+            <select disabled name="parroquia" id="parroquia"></select>
+          </div>
+          <button
+            disabled
+            class="buscar-btn"
+            type="submit"
+            id="guardar-cliente"
+          >
+            Guardar Cliente
+          </button>
+        </form>
+      </div>
+    </main>
+    <script type="module" async>
+      //CARGAR ESTADOS, MUNICIPIOS Y PARROQUIAS
+      const estadoSelect = document.getElementById("estado");
+      const municipioSelect = document.getElementById("municipio");
+      const parroquiaSelect = document.getElementById("parroquia");
+
+      let estados = [];
+      let municipios = [];
+      let parroquias = [];
+
+      let parroquiaSeleccionada;
+
+      const fetchEstados = async () => {
+        const response = await fetch("http://127.0.0.1:3000/lugar/estado");
+        const data = await response.json();
+        data.forEach((estado) => {
+          estados.push(estado);
+          const option = document.createElement("option");
+          option.value = estado.lugar_nombre;
+          option.textContent = estado.lugar_nombre;
+          estadoSelect.appendChild(option);
+        });
+      };
+      fetchEstados();
+
+      const fetchMunicipios = async (estadoId) => {
+        const response = await fetch(
+          `http://127.0.0.1:3000/lugar/${estadoId}/municipio`
+        );
+        const data = await response.json();
+        data.forEach((municipio) => {
+          municipios.push(municipio);
+          const option = document.createElement("option");
+          option.value = municipio.lugar_nombre;
+          option.textContent = municipio.lugar_nombre;
+          municipioSelect.appendChild(option);
+        });
+      };
+
+      const fetchParroquias = async (municipioId) => {
+        const response = await fetch(
+          `http://127.0.0.1:3000/lugar/${municipioId}/parroquia`
+        );
+        const data = await response.json();
+        data.forEach((municipio) => {
+          parroquias.push(municipio);
+          const option = document.createElement("option");
+          option.value = municipio.lugar_nombre;
+          option.textContent = municipio.lugar_nombre;
+          parroquiaSelect.appendChild(option);
+        });
+      };
+
+      estadoSelect.addEventListener("change", (e) => {
+        const estado = estados.find(
+          (estado) => estado.lugar_nombre === e.target.value
+        );
+        fetchMunicipios(estado.lugar_codigo);
+        // le quito el disabled al select
+        municipioSelect.removeAttribute("disabled");
+      });
+
+      municipioSelect.addEventListener("change", (e) => {
+        const municipio = municipios.find(
+          (municipio) => municipio.lugar_nombre === e.target.value
+        );
+        fetchParroquias(municipio.lugar_codigo);
+        // le quito el disabled al select
+        parroquiaSelect.removeAttribute("disabled");
+      });
+
+      // GUARDAR CLIENTE
+      const botonGuardarCliente = document.getElementById("guardar-cliente");
+
+      parroquiaSelect.addEventListener("change", (e) => {
+        parroquiaSeleccionada = parroquias.find(
+          (parroquia) => parroquia.lugar_nombre === e.target.value
+        ).lugar_codigo;
+
+        console.log(parroquiaSeleccionada);
+
+        botonGuardarCliente.removeAttribute("disabled");
+      });
+
+      const guardarCliente = async (cliente) => {
+        const response = await fetch("http://127.0.0.1:3000/cliente_juridico", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(cliente),
+        });
+        const data = await response.json();
+        console.log(data);
+        if (data.message === "Cliente Juridico creado") {
+          alert("Cliente creado exitosamente");
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 2000);
+        } else {
+          alert("Error al crear cliente");
+        }
+      };
+
+      botonGuardarCliente.addEventListener("click", (e) => {
+        e.preventDefault();
+        const rif = document.getElementById("RIF").value;
+        const direccFiscal = document.getElementById("direcc-fiscal").value;
+        const razonSocial = document.getElementById("razonSocial").value;
+        const paginaWeb = document.getElementById("pagina-web").value;
+        const direccFisica = direccFiscal;
+        const codigoArea = document.getElementById("codigo-area").value;
+        const telefono = document.getElementById("telefono").value;
+        const correo = document.getElementById("correo").value;
+        const usuario = document.getElementById("usuario").value;
+        const contraseña = document.getElementById("contraseña").value;
+        const parroquia = parroquiaSeleccionada;
+        const parroquia2 = parroquiaSeleccionada;
+
+        const cliente = {
+          rif,
+          direccFiscal,
+          razonSocial,
+          paginaWeb,
+          direccFisica,
+          parroquia,
+          parroquia2,
+          codigoArea,
+          telefono,
+          correo,
+          usuario,
+          contraseña,
+        };
+
+        console.log(cliente);
+
+        guardarCliente(cliente);
+      });
+    </script>
+  </body>
+</html>
