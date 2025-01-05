@@ -1,0 +1,425 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+}
+/*-----------------------------------DE LA INTERFAZ DEL LOGIN--------------------------------------------------------*/
+.container-login{
+    display: flex; 
+    width: 100%; 
+    height: 100%; 
+    overflow: hidden;
+}
+
+.right{
+    width: 50%;
+    height: 100%;
+    background-color: #0F172A;
+}
+
+#parrafos{
+    background-color: #0F172A;
+    margin-top: 85%;
+    margin-left: 40px;
+}
+
+.right p{
+    color: #FFFFFF;
+    font-size: 14px;
+    margin: 10px 0; 
+    text-align: left;
+}
+
+.login { 
+    width: 50%; 
+    padding: 40px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.login label {
+    display: block; 
+    margin-bottom: 25px; 
+    color: #6D6D76; 
+    font-size: 14px;
+}
+
+.campo-log {
+    margin-bottom: 15px;
+}
+
+.campo-log input {
+    width: 300px; 
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 14px;
+}
+
+.login button {
+    width: 300px;
+}
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+/* CABECERA */
+header {
+    border: 1px solid #D3D3D3;
+    width: 100%;
+    height: 60px;
+    position: relative;
+}
+
+/* ///UCABAIR */
+#logo {
+    margin-top: 15px;
+    margin-left: 22px;
+}
+
+/* Contiene foto de usuario y botón de notificaciones*/
+.usuario {
+    position: absolute;
+    top: 5px;
+    right: 22px;
+    display: flex;
+}
+
+.usuario button {
+    width: 40px;
+    height: 40px; 
+    margin: 5px;
+    border-radius: 10px;
+    border: 1px solid #f8f9fa;
+}
+
+.notificacion ion-icon {
+    width: 30px;
+    height: 30px; 
+}
+
+#foto-perfil {
+    border-radius: 30px;
+}
+
+/* BARRA LATERAL */
+.sidebar {
+    border-right: 1px solid #D3D3D3;
+    width: 280px;
+    height: 100%;
+    position: fixed;
+    padding: 20px;
+}
+/*Modulos*/
+h2 {
+    margin-top: 5px;
+    padding: 10px;
+    font-color: black;
+}
+/*Contiene los enlaces de la barra lateral*/
+.navegacion {
+    margin-top: 10px;
+}
+
+.navegacion ul {
+    list-style: none;
+}
+
+.navegacion li {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar a {
+    text-decoration: none;
+    width: 240px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #334155;
+}
+
+.sidebar a:hover {
+    background-color: #D3D3D3;
+}
+
+.sidebar ion-icon {
+    width: 45px;
+    font-size: 20px;
+}
+/*Separa los módulos del enlace para salir*/
+.linea {
+    width: 100%;
+    height: 1px;
+    background-color: #D3D3D3;
+}
+
+/* CONTENIDO PRINCIPAL */
+main {
+    margin-left: 320px; 
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.campo { 
+    margin-bottom: 15px; 
+} 
+
+.campo label, .select-proveedor label { 
+    display: block; 
+    margin-bottom: 5px; 
+    color: #333; 
+} 
+
+
+.campo input, .campo select, .campo textarea { 
+    width: 1000px; 
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 14px;
+} 
+
+.campo textarea { 
+    resize: vertical; 
+}
+
+.select-proveedor {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.select-proveedor select { 
+    width: 180px; 
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 14px;
+} 
+
+.search-box {
+    display: flex; 
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    gap: 10px;
+}
+
+.search-box input {
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#searchInput{
+    width: 1000px;
+}
+
+#searchInputpeque {
+    width: 500px;
+}
+
+button:hover{ 
+    border-color: #dadce0; 
+    background-color: #dadce0; 
+    color: #0F172A; 
+}
+
+.buscar-btn{ 
+    padding: 10px 20px; 
+    border: 1px solid #f8f9fa; 
+    border-radius: 4px; 
+    background-color: #0F172A;
+    color: white;
+    cursor: pointer;
+}
+/*Botones "ver más" de las ordenes de compra*/
+.vermas-btn {
+    padding: 5px 10px; 
+    border: 1px solid #f8f9fa; 
+    border-radius: 4px; 
+    background-color: #0F172A;
+    color: white;
+    cursor: pointer;
+}
+
+table {
+    border-radius: 15px;
+    overflow: hidden;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    font-size: 14px;
+    padding: 10px;
+}
+
+th {
+    font-weight: normal;
+    background-color: #f2f2f2;
+}
+
+.tabla-grande {
+    width: 1100px;
+}
+
+.tabla-grande th, .tabla-grande td, #tabla-orden th {
+    text-align: left;
+}
+/*Para tablas del módulo de roles y permisos*/
+.tabla-peque{
+    width: 600px;
+}
+.tabla-peque th, .tabla-peque td  {
+    text-align: center;
+}
+
+#empleado{
+    border: 2px solid #0F172A;
+}
+
+/*Para los botones de Añadir, Modificar y Eliminar*/
+.button-container button {
+    position: relative;
+    background-color: #0F172A;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    height: 36px;
+    line-height: 27px;
+    min-width: 54px;
+    padding: 0 16px;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: pre;
+    margin-top: 40px;
+}
+
+.button-container button:hover { 
+    border-color: #dadce0; 
+    background-color: #dadce0; 
+    color: #0F172A; 
+}
+/*Botones Fisher Price;)*/
+.container-FP-btn {
+    margin-left: 200px;
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    width: 600px;
+}
+
+.botonFP {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 180px;
+    height: 160px;
+    background-color: #0F172A;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.botonFP ion-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+.botonFP span {
+    font-size: 20px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.botonFP:hover {
+    border-color: #dadce0; 
+    background-color: #dadce0; 
+    color: #0F172A; 
+}
+
+#orden-compra {
+    border: 2px solid #0F172A;
+    border-radius: 8px;
+    width: 1100px;
+    height: 600px;
+    display: flex; 
+    flex-direction: column;
+}
+
+.parte-orden {
+    display: flex; 
+    flex-direction: column;
+}
+
+.parte-orden label {
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+#encabezado-orden {
+    width: 20%;
+    align-items: center;
+    margin-left: 30px;
+}
+
+#diferente-orden {
+    display: flex; 
+    flex-direction: file;
+    margin-left: 50px;
+    margin-bottom: 40px;
+}
+
+#orden-compra div {
+    margin-top: 20px;
+    margin-right: 110px;
+}
+
+#tabla-orden {
+    width: 1000px;
+    margin-left: 50px;
+}
+
+#tabla-orden th {
+    background-color: #0F172A;
+    color: white;
+}
+
+#suma-total {
+    margin-left: 50px;
+    width: 300px;
+    height: 80px;
+    background-color: #0F172A;
+    color: white;
+    padding: 25px;
+    display: flex; 
+    flex-direction: column;
+}
+
+#suma-total label{
+    margin-bottom: 5px;
+    font-size: 14px;
+}

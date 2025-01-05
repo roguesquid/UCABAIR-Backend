@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>UCABAir</title>
+    <link rel="stylesheet" href="../estilos.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="../comportamiento.js"></script>
+  </head>
+  <body>
+    <header>
+      <img id="logo" src="../imagenes/logo.png" width="200px" height="auto">
+      <div class="usuario">
+        <button class="notificacion">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </button>
+        <img id="foto-perfil" src="../imagenes/koala vestido de ejecutivo.png" width="50px" height="auto">
+      </div>
+    </header>
+    <div class="sidebar">
+      <h2>Módulos</h2>
+      <nav class="navegacion">
+        <ul>
+          <li>
+            <a href="inicio.html">
+              <ion-icon name="home-outline"></ion-icon>
+              <span>Inicio</span>
+            </a>
+          </li>
+          <li>
+            <a href="inventario.html">
+              <ion-icon name="cube-outline"></ion-icon>
+              <span>Inventario</span>
+            </a>
+          </li>
+          <li>
+            <a href="ensamblaje.html">
+              <ion-icon name="hammer-outline"></ion-icon>
+              <span>Ensamblaje</span>
+            </a>
+          </li>
+          <li>
+            <a href="pruebas.html">
+              <ion-icon name="checkbox-outline"></ion-icon>
+              <span>Pruebas</span>
+            </a>
+          </li>
+          <li>
+            <a href="aviones.html">
+              <ion-icon name="airplane-outline"></ion-icon>
+              <span>Aviones</span>
+            </a>
+          </li>
+          <li>
+            <a href="ordenes y transporte.html">
+              <ion-icon name="paper-plane-outline"></ion-icon>
+              <span>Ordenes de Producción y Transporte</span>
+            </a>
+          </li>
+          <li>
+            <a href="clientes y proveedores.html">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>Clientes y Proveedores</span>
+            </a>
+          </li>
+          <li>
+            <a href="personal.html">
+              <ion-icon name="people-outline"></ion-icon>
+              <span>Personal</span>
+            </a>
+          </li>
+          <li>
+            <a href="reportes.html">
+              <ion-icon name="document-attach-outline"></ion-icon>
+              <span>Reportes</span>
+            </a>
+          </li>
+          <li>
+            <a href="roles y permisos.html">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Roles y Permisos</span>
+            </a>
+          </li>
+        </ul>
+       </nav>
+       <div class="linea"></div>
+       <a id="logout" href="">
+        <ion-icon name="log-out-outline"></ion-icon>
+        <span>Sign out</span>
+      </a>
+    </div>
+    <main>
+      <div class="contenedor">
+        <h1>Registro Proveedor</h1>
+        <form>
+            <div class="campo">
+                <label for="cedula">RIF:</label>
+                <input type="text" id="RIF" name="RIF" placeholder="Ingresa RIF...">
+             </div>
+              <div class="campo">
+                  <label for="correo">Correo Electrónico:</label>
+                  <input type="email" id="correo" name="correo" placeholder="Ingresa correo ejemplo@gmail.com...">
+              </div>
+              <div class="campo">
+                  <label for="telefono">Teléfono:</label>
+                  <input type="tel" id="telefono" name="telefono" placeholder="Ingresa telefono...">
+              </div>
+              <div class="campo">
+                <label for="razon-social">Razón Social:</label>
+                <input type="text" id="razon-social" name="razon-social" placeholder="Ingresa razón social...">
+              </div>
+              <div class="campo">
+                <label for="pagina-web">Página Web:</label>
+                <input type="url" id="pagina-web" name="pagina-web" placeholder="Ingresa url...">
+              </div>
+              <div class="campo">
+                <label for="fecha-inicio">Fecha de Inicio:</label>
+                <input type="text" id="fecha-inicio" name="fecha-inicio" placeholder="Ingresa fecha dd/mm/aa...">
+              </div>
+              <div class="campo">
+                <label for="calificacion">Calificación:</label>
+                <input type="text" id="calificacion" name="calificacion" placeholder="Ingresa calificacion">
+              </div>
+              <div class="campo">
+                  <label for="direccion">Dirección Física:</label>
+                  <textarea id="direcc-fisica" name="direcc-fisica" placeholder="Ingresa dirección..."></textarea>
+              </div>
+              <div class="campo">
+                <label for="direccion">Dirección Fiscal:</label>
+                <textarea id="direcc-fiscal" name="direcc-fiscal" placeholder="Ingresa dirección..."></textarea>
+              </div>
+          <button class="buscar-btn" type="submit">Guardar Proveedor</button>
+        </form>
+        </div>
+    </main>
+  </body>
+</html>
