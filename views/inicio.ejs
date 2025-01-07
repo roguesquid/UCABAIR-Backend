@@ -1,21 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
     <title>UCABAir</title>
     <link rel="stylesheet" href="../estilos.css" />
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="../comportamiento.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <style>
+      .bienvenida {
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+      }
+      .bienvenida h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+      .bienvenida p {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+      .cerrarSesion {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        cursor: pointer !important;
+        width: 100px !important;
+      }
+    </style>
   </head>
   <body>
+    <% if (typeof username !== 'undefined') { %>
     <header>
-      <img id="logo" src="../imagenes/logo.png" width="200px" height="auto">
+      <img id="logo" src="../imagenes/logo.png" width="200px" height="auto" />
       <div class="usuario">
+        <button class="cerrarSesion">Cerrar Sesión</button>
         <button class="notificacion">
           <ion-icon name="notifications-outline"></ion-icon>
         </button>
-        <img id="foto-perfil" src="../imagenes/koala vestido de ejecutivo.png" width="50px" height="auto">
+        <img
+          id="foto-perfil"
+          src="../imagenes/koala vestido de ejecutivo.png"
+          width="50px"
+          height="auto"
+        />
       </div>
     </header>
     <div class="sidebar">
@@ -83,41 +121,42 @@
             </a>
           </li>
         </ul>
-       </nav>
-       <div class="linea"></div>
-       <a id="logout" href="">
+      </nav>
+      <div class="linea"></div>
+      <a id="logout" href="">
         <ion-icon name="log-out-outline"></ion-icon>
         <span>Sign out</span>
       </a>
     </div>
     <main>
       <div class="contenedor">
-        <h1>Registro Prueba</h1>
-        <form>
-          <div class="campo"> 
-            <label for="tipo">Tipo:</label> 
-            <select id="tipo" name="tipo"> 
-                <option value="">Seleccione una Opción</option> 
-                <option value="prueba-avion">Prueba Avion</option> 
-                <option value="prueba-pieza">Prueba Pieza</option> 
-                <option value="prueba-materia">Prueba Materia Prima</option> 
-            </select> 
-          </div>
-          <div class="campo">
-              <label for="nombre">Nombre:</label>
-              <input type="text" id="nombre" name="nombre" placeholder="Ingresa nombre...">
-          </div>
-          <div class="campo">
-            <label for="duracion">Duración:</label>
-            <input type="text" id="duracion" name="duracion" placeholder="Ingresa duracion...">
-          </div>
-          <div class="campo">
-            <label for="zona">Zona:</label>
-            <input type="text" id="zona" name="zona" placeholder="Ingresa zona...">
-          </div>
-          <button class="buscar-btn" type="submit">Guardar Prueba</button>
-        </form>
-        </div>
+        <h1>Inicio</h1>
+        <article class="bienvenida">
+          <h1>Bienvenido: <%= username %></h1>
+          <p>UCABAir es una empresa dedicada a la fabricación de aviones.</p>
+          <p>
+            En este sistema podrás llevar un control de los aviones que se están
+            fabricando, los componentes que se tienen en inventario, el personal
+            que trabaja en la empresa, entre otras cosas.
+          </p>
+        </article>
+      </div>
     </main>
+    <% } %> <% if (typeof username === 'undefined') { %> <%-
+    include('no-permiso') %> <% } %>
+    <script>
+      const cerrarSesion = document.querySelector(".cerrarSesion");
+      cerrarSesion.addEventListener("click", () => {
+        fetch("/logout", {
+          method: "POST",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.ok) {
+              window.location.href = "/login";
+            }
+          });
+      });
+    </script>
   </body>
 </html>

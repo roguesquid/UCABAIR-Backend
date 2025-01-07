@@ -6,6 +6,76 @@
     <title>UCABAir</title>
     <link rel="stylesheet" href="../estilos.css" />
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        width: 100%;
+        height: 100vh;
+      }
+
+      .container-login {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .right {
+        width: 50%;
+        height: 100%;
+        background-color: #0f172a;
+      }
+
+      #parrafos {
+        background-color: #0f172a;
+        margin-top: 85%;
+        margin-left: 40px;
+      }
+
+      .right p {
+        color: #ffffff;
+        font-size: 14px;
+        margin: 10px 0;
+        text-align: left;
+      }
+
+      .login {
+        width: 50%;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login label {
+        display: block;
+        margin-bottom: 25px;
+        color: #6d6d76;
+        font-size: 14px;
+      }
+
+      .campo-log {
+        margin-bottom: 15px;
+      }
+
+      .campo-log input {
+        width: 300px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .login button {
+        width: 300px;
+      }
+
       .not-fetched {
         display: none;
       }
@@ -28,7 +98,7 @@
       <div class="right">
         <img
           id="logo"
-          src="../imagenes/logo dark.png"
+          src="imagenes/logo dark.png"
           width="200px"
           height="auto"
         />
@@ -97,7 +167,7 @@
               loginSpan.innerText = "Sesion iniciada, entrando...";
               loginSpan.style.color = "green";
               setTimeout(() => {
-                window.location.href = "http://localhost:3000/inicio";
+                window.location.href = "http://localhost:3000/";
               }, 2000);
             } else {
               loginSpan.innerText = "Usuario o contraseña incorrectos";
