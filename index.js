@@ -1,5 +1,4 @@
 import express from 'express'
-import path from 'path'
 import { PORT } from './config.js'
 import { controllerLugar } from './controller/lugar.js'
 import { controllerClienteNatural } from './controller/cliente_natural.js'
@@ -7,6 +6,8 @@ import { controllerClienteJuridico } from './controller/cliente_juridico.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import { AuthController } from './controller/auth.js'
+import { controllerAvion } from './controller/avion.js'
+import { reporteController } from './controller/reporte.js'
 
 const app = express()
 
@@ -38,8 +39,6 @@ app.post('/login', AuthController.verificarLogin)
 
 app.post('/logout', AuthController.logout)
 
-app.post('/protected', (req, res) => { })
-
 app.get('/lugar/estado', controllerLugar.devolverEstado)
 
 app.get('/lugar/:estadoId/municipio', controllerLugar.devolverMunicipio)
@@ -59,6 +58,18 @@ app.get('/registrar-cliente-juridico', (req, res) => {
 })
 
 app.post('/cliente_juridico', controllerClienteJuridico.crearClienteJuridico)
+
+// AVIONES
+app.get('/aviones', controllerAvion.obtenerRuta)
+
+// app.get('/aviones/agregar', controllerAvion.obtenerAgregarAvion)
+// app.get('/aviones/:id/modificar', controllerAvion.modificarAvion)
+app.post('/aviones/:id/eliminar', controllerAvion.eliminarAvion)
+
+// REPORTES
+app.get('/reportes', reporteController.devolverPagina)
+app.get('/reportes/:reporteNombre', reporteController.devolverReportePagina)
+app.get('/reportes/:reporteNombre/:fechaInicio/:fechaFin', reporteController.getProveedoresYProductos)
 
 app.listen(3000, () => {
   console.log(`Server is running on port http://localhost:${PORT}`)

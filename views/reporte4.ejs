@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>UCABAir</title>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="comportamiento.js"></script>
+    <style>
+      .button-container {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 20px;
+          flex-direction: column;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+      }
+      th {
+        cursor: pointer;
+        background-color: #f4f4f4;
+      }
+      th.sort-asc::after {
+        content: " \25B2"; /* Up arrow */
+      }
+      th.sort-desc::after {
+        content: " \25BC"; /* Down arrow */
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      .pagination {
+        margin-top: 10px;
+      }
+      .pagination button {
+        padding: 5px 10px;
+        margin: 0 5px;
+      }
+      .search-box {
+        margin-bottom: 10px;
+      }
+      .search-box input {
+        padding: 5px;
+        width: 200px;
+      }
+      .delete-btn {
+        background-color: #ff4c4c;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .edit-btn {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <% if (typeof username !== 'undefined') { %> <%- include('header') %> <%-
+    include('side-bar') %>
+    <main>
+      <div class="contenedor">
+        <h1>Banner 9</h1>
+        <div class="button-container">
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            onkeyup="filterTable()"
+            placeholder="Filtrar por nombre..."
+          />
+          <button class="buscar-btn">Buscar</button>
+        </div>
+        <div class="pagination">
+          <button onclick="prevPage()" id="btn_prev">Anterior</button>
+          <button onclick="nextPage()" id="btn_next">Siguiente</button>
+          Página: <span id="page"></span>
+        </div>
+        <table class="tabla-grande" id="dataTable">
+          <thead>
+            <tr>
+              <th onclick="sortTable(0)">Nombre de Pieza</th>
+              <th onclick="sortTable(1)">Descripcion</th>
+              <th onclick="sortTable(2)">Modelo de Avion</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <% datos.forEach((element, index) => { %>
+            <tr>
+              <td><%= element.m_pieza_nombre %></td>
+              <td><%= element.m_pieza_descripcion %></td>
+              <td><%= element.modelo_avion_nombre %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <button onclick="prevPage()" id="btn_prev">Anterior</button>
+          <button onclick="nextPage()" id="btn_next">Siguiente</button>
+          Página: <span id="page"></span>
+        </div>
+      </div>
+    </main>
+    <% } %> <% if (typeof username === 'undefined') { %> <%-
+    include('no-permiso') %> <% } %>
+  </body>
+  <script>
+    var current_page = 1;
+    var records_per_page = 5;
+    var original_table_rows;
+
+    window.onload = function () {
+      original_table_rows = [
+        ...document.querySelectorAll("#dataTable tbody tr"),
+      ];
+      changePage(1);
+    };
+
+    function prevPage() {
+      if (current_page > 1) {
+        current_page--;
+        changePage(current_page);
+      }
+    }
+
+    function nextPage() {
+      if (current_page < numPages()) {
+        current_page++;
+        changePage(current_page);
+      }
+    }
+
+    function changePage(page) {
+      var btn_next = document.getElementById("btn_next");
+      var btn_prev = document.getElementById("btn_prev");
+      var listing_table = document.getElementById("dataTable");
+      var page_span = document.getElementById("page");
+
+      if (page < 1) page = 1;
+      if (page > numPages()) page = numPages();
+
+      var tableBody = listing_table.getElementsByTagName("tbody")[0];
+      var tr = tableBody.getElementsByTagName("tr");
+
+      for (var i = 0; i < tr.length; i++) {
+        tr[i].style.display = "none";
+      }
+
+      for (
+        var i = (page - 1) * records_per_page;
+        i < page * records_per_page && i < tr.length;
+        i++
+      ) {
+        tr[i].style.display = "";
+      }
+
+      page_span.innerHTML = page;
+
+      if (page == 1) {
+        btn_prev.style.visibility = "hidden";
+      } else {
+        btn_prev.style.visibility = "visible";
+      }
+
+      if (page == numPages()) {
+        btn_next.style.visibility = "hidden";
+      } else {
+        btn_next.style.visibility = "visible";
+      }
+    }
+
+    function numPages() {
+      var tableBody = document
+        .getElementById("dataTable")
+        .getElementsByTagName("tbody")[0];
+      return Math.ceil(
+        tableBody.getElementsByTagName("tr").length / records_per_page
+      );
+    }
+
+    function sortTable(n) {
+      var table,
+        rows,
+        switching,
+        i,
+        x,
+        y,
+        shouldSwitch,
+        dir,
+        switchcount = 0;
+      table = document.getElementById("dataTable");
+      switching = true;
+      dir = "asc";
+
+      while (switching) {
+        switching = false;
+        rows = table.rows;
+
+        for (i = 1; i < rows.length - 1; i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount++;
+        } else {
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+
+    function filterTable() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("searchInput");
+      filter = input.value.toUpperCase();
+      table = document.querySelector(".tabla-grande tbody");
+      tr = table.getElementsByTagName("tr");
+
+      let visibleRows = [];
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            visibleRows.push(tr[i]);
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+
+      updatePagination(visibleRows);
+    }
+
+    function updatePagination(visibleRows) {
+      var tableBody = document.getElementById("tableBody");
+
+      // Clear the current table body
+      tableBody.innerHTML = "";
+
+      // Append only the visible rows based on the filter
+      for (var i = 0; i < visibleRows.length; i++) {
+        tableBody.appendChild(visibleRows[i]);
+      }
+
+      // Reset the current page to 1
+      current_page = 1;
+      changePage(current_page);
+    }
+  </script>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>UCABAir</title>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="comportamiento.js"></script>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+      }
+      th {
+        cursor: pointer;
+        background-color: #f4f4f4;
+      }
+      th.sort-asc::after {
+        content: " \25B2"; /* Up arrow */
+      }
+      th.sort-desc::after {
+        content: " \25BC"; /* Down arrow */
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      .pagination {
+        margin-top: 10px;
+      }
+      .pagination button {
+        padding: 5px 10px;
+        margin: 0 5px;
+      }
+      .search-box {
+        margin-bottom: 10px;
+      }
+      .search-box input {
+        padding: 5px;
+        width: 200px;
+      }
+      .delete-btn {
+        background-color: #ff4c4c;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .edit-btn {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <% if (typeof username !== 'undefined') { %> <%- include('header') %> <%-
+    include('side-bar') %>
+    <main>
+      <div class="contenedor">
+        <h1>Reportes</h1>
+        <div class="container-FP-btn">
+          <div
+            class="botonFP"
+            onclick="window.location.href='/reportes/proveedores-y-productos'"
+          >
+            <ion-icon name="person"></ion-icon>
+            <span>Proveedores y Productos</span>
+          </div>
+          <div
+            class="botonFP"
+            onclick="window.location.href='/reportes/ingresos-a-inventario'"
+          >
+            <ion-icon name="trending-up-outline"></ion-icon>
+            <span>Ingresos a Inventario</span>
+          </div>
+          <div
+            class="botonFP"
+            onclick="window.location.href='/reportes/pagos-a-proveedores'"
+          >
+            <ion-icon name="cash-outline"></ion-icon>
+            <span>Pagos a Proveedores</span>
+          </div>
+          <div
+            class="botonFP"
+            onclick="window.location.href='/reportes/modelos-y-piezas'"
+          >
+            <ion-icon name="cog-outline"></ion-icon>
+            <span>Modelos y Piezas</span>
+          </div>
+          <div
+            class="botonFP"
+            onclick="window.location.href='/reportes/modelos-y-pruebas'"
+          >
+            <ion-icon name="create-outline"></ion-icon>
+            <span>Modelos y Pruebas</span>
+          </div>
+          <div
+            class="botonFP"
+            onclick="window.location.href='/reportes/empleados-y-horarios'"
+          >
+            <ion-icon name="time-outline"></ion-icon>
+            <span>Empleados y Horarios</span>
+          </div>
+          <div
+            class="botonFP"
+            onclick="window.location.href='/reportes/empleados-y-proyectos'"
+          >
+            <ion-icon name="list-outline"></ion-icon>
+            <span>Empleados y Proyectos</span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <% } %> <% if (typeof username === 'undefined') { %> <%-
+    include('no-permiso') %> <% } %>
+  </body>
+</html>
