@@ -30,7 +30,7 @@ export class controllerAvion {
     const username = user?.username
     const { id } = req.params
     const entidad = await avionRepository.devolverAvion(id)
-    res.render('avion', { username, entidad })
+    res.json(entidad)
   }
 
   // DELETE
@@ -41,5 +41,15 @@ export class controllerAvion {
   }
 
   // UPDATE
+  static async actualizarAvion(req, res) {
+    const { id } = req.params
+    const { nombre, descripcion } = req.body
+    try {
+      await avionRepository.actualizarAvion(id, nombre, descripcion)
+      res.json({ message: 'Modelo de Avion actualizado' })
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
 }

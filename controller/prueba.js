@@ -8,7 +8,7 @@ export class controllerPrueba {
     const entidad = pruebas.map(prueba => {
       return {
         id: prueba.id,
-        nombre: prueba.tipo,
+        nombre: prueba.nombre,
         duracion: `${prueba.duracion.hours} Horas, ${prueba.duracion.minutes ?? 0} Minutos`,
         tipo: prueba.tipo
       }
@@ -37,6 +37,22 @@ export class controllerPrueba {
     const { id } = req.params
     const { tipo } = req.body
     const respuesta = await pruebaRepository.eliminarPrueba(id, tipo)
+    res.json(respuesta)
+  }
+
+  static async obtenerPrueba(req, res) {
+    const { id } = req.params
+    const tipo = req.body.tipo
+    console.log(id, tipo)
+    const prueba = await pruebaRepository.devolverPrueba(id, tipo)
+    res.json(prueba)
+  }
+
+  // UPDATE
+  static async actualizarPrueba(req, res) {
+    const { id } = req.params
+    const { nombre, duracion, tipo, zona } = req.body
+    const respuesta = await pruebaRepository.actualizarPrueba(id, nombre, duracion, tipo, zona)
     res.json(respuesta)
   }
 }

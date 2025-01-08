@@ -42,4 +42,15 @@ export class avionRepository {
       throw new Error('Internal Server Error')
     }
   }
+
+  static async actualizarAvion(id, nombre, descripcion) {
+    try {
+      console.log(id, nombre, descripcion);
+      await client.query('SELECT * FROM actualizar_modelo_avion($1, $2, $3);', [id, nombre, descripcion])
+      return { message: `Avion id ${id} actualizado exitosamente` }
+    } catch (err) {
+      console.log(err.message)
+      throw new Error('Internal Server Error')
+    }
+  }
 }

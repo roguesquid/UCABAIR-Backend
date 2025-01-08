@@ -66,15 +66,15 @@ app.post('/cliente_juridico', controllerClienteJuridico.crearClienteJuridico)
 // MODELO AVION
 app.get('/avion', controllerAvion.obtenerRuta)
 app.post('/avion', controllerAvion.crearAvion) // Create avion
-// app.get('/avion/:id', controllerAvion.obtenerAvion) // Read avion
-// app.put('/avion/:id', controllerAvion.actualizarAvion) // Update avion
+app.get('/avion/:id', controllerAvion.obtenerAvion) // Read avion
+app.put('/avion/:id', controllerAvion.actualizarAvion) // Update avion
 app.post('/avion/:id/eliminar', controllerAvion.eliminarAvion) // Delete avion
 
 // TIPO PRUEBAS
 app.get('/prueba', controllerPrueba.obtenerRuta)
 app.post('/prueba', controllerPrueba.crearPrueba) // Create Tipo Prueba
-// app.get('/prueba/:id', controllerPrueba.obtenerPrueba) // Read Tipo Prueba
-// app.put('/prueba/:id', controllerPrueba.actualizarPrueba) // Update Tipo Prueba
+app.post('/prueba/:id', controllerPrueba.obtenerPrueba) // Read Tipo Prueba
+app.put('/prueba/:id', controllerPrueba.actualizarPrueba) // Update Tipo Prueba
 app.post('/prueba/:id/eliminar', controllerPrueba.eliminarPrueba) // Delete Tipo Prueba
 
 // PROVEEDORES

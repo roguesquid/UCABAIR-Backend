@@ -31,4 +31,25 @@ export class pruebaRepository {
       throw new Error('Internal Server Error')
     }
   }
+
+  static async devolverPrueba(id, tipo) {
+    try {
+      const result = await client.query('SELECT * FROM obtener_tipo_prueba($1, $2);', [id, tipo])
+      console.log(result.rows)
+      return result.rows[0]
+    } catch (err) {
+      console.log(err.message)
+      throw new Error('Internal Server Error')
+    }
+  }
+
+  static async actualizarPrueba(id, nombre, duracion, tipo, zona) {
+    try {
+      const result = await client.query('SELECT * FROM actualizar_tipo_prueba($1, $2, $3, $4, $5);', [id, nombre, duracion, tipo, zona])
+      return result.rows[0].actualizar_tipo_prueba
+    } catch (err) {
+      console.log(err.message)
+      throw new Error('Internal Server Error')
+    }
+  }
 }
