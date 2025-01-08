@@ -32,4 +32,17 @@ export class controllerEmpleado {
     const respuesta = await empleadoRepository.eliminarEmpleado(id)
     res.json(respuesta)
   }
+
+  static async obtenerEmpleado(req, res) {
+    const { id } = req.params
+    const entidad = await empleadoRepository.devolverEmpleado(id)
+    res.json(entidad)
+  }
+
+  static async actualizarEmpleado(req, res) {
+    const { id } = req.params
+    const { cedula, nombre, sNombre, apellido, sApellido, fechaNac, direccion, rif, experiencia, parroquia } = req.body
+    const respuesta = await empleadoRepository.actualizarEmpleado(id, cedula, nombre, sNombre, apellido, sApellido, fechaNac, direccion, rif, experiencia, parroquia)
+    res.json(respuesta)
+  }
 }

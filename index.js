@@ -80,22 +80,22 @@ app.post('/prueba/:id/eliminar', controllerPrueba.eliminarPrueba) // Delete Tipo
 // PROVEEDORES
 app.get('/proveedor', controllerProveedor.obtenerRuta)
 app.post('/proveedor', controllerProveedor.crearProveedor) // Create Proveedor
-// app.get('/proveedor/:id', controllerProveedor.obtenerProveedor) // Read Proveedor
-// app.put('/proveedor/:id', controllerProveedor.actualizarProveedor) // Update Proveedor
+app.get('/proveedor/:id', controllerProveedor.obtenerProveedor) // Read Proveedor
+app.put('/proveedor/:id', controllerProveedor.actualizarProveedor) // Update Proveedor
 app.post('/proveedor/:id/eliminar', controllerProveedor.eliminarProveedor) // Delete Proveedor
 
 // Empleados
 app.get('/empleado', controllerEmpleado.obtenerRuta)
 app.post('/empleado', controllerEmpleado.crearEmpleado) // Create Empleado
-// app.get('/empleado/:id', controllerEmpleado.obtenerEmpleado) // Read Empleado
-// app.put('/empleado/:id', controllerEmpleado.actualizarEmpleado) // Update Empleado
+app.get('/empleado/:id', controllerEmpleado.obtenerEmpleado) // Read Empleado
+app.put('/empleado/:id', controllerEmpleado.actualizarEmpleado) // Update Empleado
 app.post('/empleado/:id/eliminar', controllerEmpleado.eliminarEmpleado) // Delete Empleado
 
 // Roles
 app.get('/rol', controllerRol.obtenerRuta)
 app.post('/rol', controllerRol.crearRol) // Create Rol
-// app.get('/rol/:id', controllerRol.obtenerRol) // Read Rol
-// app.put('/rol/:id', controllerRol.actualizarRol) // Update Rol
+app.get('/rol/:id', controllerRol.obtenerRol) // Read Rol
+app.put('/rol/:id', controllerRol.actualizarRol) // Update Rol
 app.post('/rol/:id/eliminar', controllerRol.eliminarRol) // Delete Rol
 
 // REPORTES

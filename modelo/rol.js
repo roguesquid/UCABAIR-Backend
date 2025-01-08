@@ -32,4 +32,26 @@ export class rolRepository {
       throw new Error('Internal Server Error')
     }
   }
+
+  // obtener
+  static async devolverRol(id) {
+    try {
+      const result = await client.query('SELECT * FROM obtener_rol($1);', [id])
+      return result.rows[0]
+    } catch (err) {
+      console.log(err.message)
+      throw new Error('Internal Server Error')
+    }
+  }
+
+  // actualizar
+  static async actualizarRol(id, nombre, descripcion) {
+    try {
+      await client.query('SELECT * FROM actualizar_rol($1, $2, $3);', [id, nombre, descripcion])
+      return { message: `Rol id ${id} actualizado exitosamente` }
+    } catch (err) {
+      console.log(err.message)
+      throw new Error('Internal Server Error')
+    }
+  }
 }

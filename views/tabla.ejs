@@ -511,33 +511,62 @@
         const estado = document.getElementById("estadoP").value;
         const municipio = document.getElementById("municipioP").value;
         const parroquia = document.getElementById("parroquiaP").value;
-        const proveedor = {
+        let proveedor = {
           razonSocial,
           calificacion,
           rif,
           paginaWeb,
           direccion,
-          estado,
-          municipio,
-          parroquia,
+          parroquia
         };
 
-        fetch("/proveedor", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(proveedor),
-        })
-          .then((response) => {
-            if (response.ok) {
-              alert("Proveedor creado exitosamente");
-              window.location.reload();
-            } else {
-              alert("Error al crear el proveedor");
-            }
+        console.log(proveedor);
+
+        if(!idACTUAL){
+          fetch("/proveedor", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(proveedor),
           })
-          .catch((error) => console.error("Error:", error));
+            .then((response) => {
+              if (response.ok) {
+                alert("Proveedor creado exitosamente");
+                window.location.reload();
+              } else {
+                alert("Error al crear el proveedor");
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        } else {
+          proveedor = {
+            razonSocial,
+            calificacion,
+            rif,
+            paginaWeb,
+            direccion,
+            parroquia,
+            id: idACTUAL
+          }
+          console.log(proveedor);
+          fetch(`/proveedor/${idACTUAL}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(proveedor),
+          })
+            .then((response) => {
+              if (response.ok) {
+                alert("Proveedor modificado exitosamente");
+                window.location.reload();
+              } else {
+                alert("Error al modificar el proveedor");
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        }
       }
       function guardarEmpleado() {
         const nombre = document.getElementById("nombreEmpleado").value;
@@ -551,55 +580,104 @@
         const experiencia = document.getElementById("experienciaEmpleado").value;
         const parroquia = document.getElementById("parroquia").value;
 
-        fetch("/empleado", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nombre,
-            sNombre,
-            apellido,
-            sApellido,
-            cedula,
-            fechaNac,
-            direccion,
-            rif,
-            experiencia,
-            parroquia,
-          }),
-        })
-          .then((response) => {
-            if (response.ok) {
-              alert("Empleado creado exitosamente");
-              window.location.reload();
-            } else {
-              alert("Error al crear el empleado");
-            }
+        if(!idACTUAL){
+          fetch("/empleado", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              nombre,
+              sNombre,
+              apellido,
+              sApellido,
+              cedula,
+              fechaNac,
+              direccion,
+              rif,
+              experiencia,
+              parroquia,
+            }),
           })
-          .catch((error) => console.error("Error:", error));
+            .then((response) => {
+              if (response.ok) {
+                alert("Empleado creado exitosamente");
+                window.location.reload();
+              } else {
+                alert("Error al crear el empleado");
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        } else {
+          fetch(`/empleado/${idACTUAL}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              nombre,
+              sNombre,
+              apellido,
+              sApellido,
+              cedula,
+              fechaNac,
+              direccion,
+              rif,
+              experiencia,
+              parroquia,
+            }),
+          })
+            .then((response) => {
+              if (response.ok) {
+                alert("Empleado creado exitosamente");
+                window.location.reload();
+              } else {
+                alert("Error al modificar el empleado");
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        }
       }
       function guardarRol() {
         const rol = {
           nombre: document.getElementById("nombreRol").value,
           descripcion: document.getElementById("descripcionRol").value,
         };
-        fetch("/rol", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(rol),
-        })
-          .then((response) => {
-            if (response.ok) {
-              alert("Rol creado exitosamente");
-              window.location.reload();
-            } else {
-              alert("Error al crear el rol");
-            }
+        if(!idACTUAL){
+          fetch("/rol", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(rol),
           })
-          .catch((error) => console.error("Error:", error));
+            .then((response) => {
+              if (response.ok) {
+                alert("Rol creado exitosamente");
+                window.location.reload();
+              } else {
+                alert("Error al crear el rol");
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        } else {
+          fetch(`/rol/${idACTUAL}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(rol),
+          })
+            .then((response) => {
+              if (response.ok) {
+                alert("Rol modificado exitosamente");
+                window.location.reload();
+              } else {
+                alert("Error al modificar el rol");
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        }
       }
 
       function getavion(id, tipo) {
@@ -641,13 +719,16 @@
         fetch(`/proveedor/${id}`)
           .then((response) => response.json())
           .then((data) => {
+            console.log(data);
             document.getElementById("nombreProveedor").value = data.razonSocial;
             document.getElementById("calificacionProveedor").value = data.calificacion;
             document.getElementById("rifProveedor").value = data.rif;
             document.getElementById("paginaWebProveedor").value = data.paginaWeb;
             document.getElementById("direccionProveedor").value = data.direccion;
-            document.getElementById("estadoP").value = data.estado;
-            document.getElementById("municipioP").value = data.municipio;
+
+            document.getElementById("estadoP").removeAttribute("disabled");
+            document.getElementById("municipioP").removeAttribute("disabled");
+            document.getElementById("parroquiaP").removeAttribute("disabled");
             document.getElementById("parroquiaP").value = data.parroquia;
           });
       }

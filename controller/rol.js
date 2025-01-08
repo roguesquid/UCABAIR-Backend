@@ -30,4 +30,17 @@ export class controllerRol {
     const respuesta = await rolRepository.eliminarRol(id)
     res.json(respuesta)
   }
+
+  static async obtenerRol(req, res) {
+    const { id } = req.params
+    const entidad = await rolRepository.devolverRol(id)
+    res.json(entidad)
+  }
+
+  static async actualizarRol(req, res) {
+    const { id } = req.params
+    const { nombre, descripcion } = req.body
+    const respuesta = await rolRepository.actualizarRol(id, nombre, descripcion)
+    res.json(respuesta)
+  }
 }

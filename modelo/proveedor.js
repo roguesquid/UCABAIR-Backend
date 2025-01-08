@@ -32,4 +32,29 @@ export class proveedorRepository {
       throw new Error('Internal Server Error')
     }
   }
+
+  // Read
+
+  static async devolverProveedor(id) {
+    try {
+      const result = await client.query('SELECT * FROM obtener_proveedor($1);', [id])
+      const { calificacion, rif, nombre, pagina_web, direccion_fiscal, lugar_nom } = result.rows[0]
+      return { calificacion, rif, razonSocial: nombre, paginaWeb: pagina_web, direccion: direccion_fiscal, parroquia: lugar_nom }
+    } catch (err) {
+      console.log(err.message)
+      throw new Error('Internal Server Error')
+    }
+  }
+
+  // Update
+  static async actualizarProveedor(id, calificacion, rif, razonSocial, paginaWeb, direccionFisica, lugar) {
+    try {
+      console.log(id, calificacion, rif, razonSocial, paginaWeb, direccionFisica, lugar);
+      await client.query('SELECT * FROM actualizar_proveedor($1, $2, $3, $4, $5, $6, $7);', [id, calificacion, rif, razonSocial, paginaWeb, direccionFisica, lugar])
+      return { message: `Proveedor id ${id} actualizado exitosamente` }
+    } catch (err) {
+      console.log(err.message)
+      throw new Error('Internal Server Error')
+    }
+  }
 }
