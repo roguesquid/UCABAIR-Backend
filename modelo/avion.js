@@ -32,4 +32,14 @@ export class avionRepository {
       throw new Error('Internal Server Error')
     }
   }
+
+  static async crearAvion(nombre, descripcion) {
+    try {
+      await client.query('SELECT * FROM crear_modelo_avion($1, $2);', [nombre, descripcion])
+      return { message: `Avion ${nombre} creado exitosamente` }
+    } catch (err) {
+      console.log(err.message)
+      throw new Error('Internal Server Error')
+    }
+  }
 }

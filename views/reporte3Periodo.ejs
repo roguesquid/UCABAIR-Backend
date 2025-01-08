@@ -3,6 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <title>UCABAir</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.2.0/css/dataTables.bootstrap5.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.0/js/dataTables.bootstrap5.js"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -11,77 +23,32 @@
       nomodule
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
-    <script src="comportamiento.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
     <style>
-      .button-container {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 20px;
-          flex-direction: column;
-      }
       main {
         display: flex;
+      }
+      .contenedor {
+        display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th,
-      td {
-        padding: 8px 12px;
-        border: 1px solid #ddd;
-      }
-      th {
-        cursor: pointer;
-        background-color: #f4f4f4;
-      }
-      th.sort-asc::after {
-        content: " \25B2"; /* Up arrow */
-      }
-      th.sort-desc::after {
-        content: " \25BC"; /* Down arrow */
-      }
-      tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-      .pagination {
-        margin-top: 10px;
-      }
-      .pagination button {
-        padding: 5px 10px;
-        margin: 0 5px;
-      }
-      .search-box {
-        margin-bottom: 10px;
-      }
-      .search-box input {
-        padding: 5px;
-        width: 200px;
-      }
-      .delete-btn {
-        background-color: #ff4c4c;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-      }
-      .edit-btn {
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-      }
+
       #formFecha {
         display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        flex-direction: row;
-        gap: 20px;
+        flex-direction: column;
+        gap: 10px;
+      }
+      #formFecha label {
+        font-weight: bold;
       }
     </style>
   </head>
@@ -91,13 +58,13 @@
     <main>
       <div class="contenedor">
         <h1>Banner 9</h1>
-        <div class="button-container">
+        <div class="">
         <form id="formFecha" action="">
           <label for="fechaInicio">Fecha de Inicio:</label>
-          <input type="date" name="" id="fechaInicio">
+          <input required class="form-control" type="date" name="" id="fechaInicio">
           <label for="fechaFin">Fecha de Fin:</label>
-          <input type="date" name="" id="fechaFin">
-          <button>Generar reporte</button>
+          <input required class="form-control" type="date" name="" id="fechaFin">
+          <button class="btn btn-success">Generar reporte</button>
         </form>
       </div>
     </main>
@@ -110,7 +77,7 @@
       e.preventDefault();
       const fechaInicio = document.getElementById('fechaInicio').value;
       const fechaFin = document.getElementById('fechaFin').value;
-      window.location.href = `/reportes/pagos-a-proveedores/${fechaInicio}/${fechaFin}`;
+      window.location.href = `/reportes/pagos-a-proveedores/${fechaInicio}&${fechaFin}`;
     });
   </script>
 </html>

@@ -12,44 +12,45 @@ export class reporteController {
     const username = user?.username
 
     const reporte = req.params.reporteNombre
-    const fechaInicio = req.query?.fechaInicio
-    const fechaFin = req.query?.fechaFin
 
-    let datos = []
-
-    if (fechaInicio && fechaFin) {
-      datos = await reporteModel.pagosAProveedores(fechaInicio, fechaFin)
-      res.render('reporte3', { username, datos })
-      return
-    }
+    let entidad = []
+    const nombreEntidad = reporte.split('-').join(' ')
 
     switch (reporte) {
       case 'proveedores-y-productos':
-        datos = await reporteModel.proveedoresYProductos()
-        res.render('reporte1', { username, datos })
+        entidad = await reporteModel.proveedoresYProductos()
+        res.render('reporte', { username, entidad, nombreEntidad })
         break
       case 'ingresos-a-inventario':
-        datos = await reporteModel.ingresosAInventario()
-        res.render('reporte2', { username, datos })
+        entidad = await reporteModel.ingresosAInventario()
+        res.render('reporte', { username, entidad, nombreEntidad })
         break
       case 'pagos-a-proveedores':
-        res.render('reporte3Periodo', { username, datos })
+        res.render('reporte3Periodo', { username, entidad, nombreEntidad })
         break
       case 'modelos-y-piezas':
-        datos = await reporteModel.modelosYPiezas()
-        res.render('reporte4', { username, datos })
+        entidad = await reporteModel.modelosYPiezas()
+        res.render('reporte', { username, entidad, nombreEntidad })
         break
       case 'modelos-y-pruebas':
-        datos = await reporteModel.modelosYPruebas()
-        res.render('reporte5', { username, datos })
+        let entidadCruda = await reporteModel.modelosYPruebas()
+        entidad = entidadCruda.map((e) => {
+          return {
+            Modelo: e.modelo_avion_nombre,
+            Prueba: e.tipo_pa_nombre,
+            Duracion: `${e.tipo_pa_duracion.hours} Horas, ${e.tipo_pa_duracion.minutes ?? 0} Minutos`,
+            Zona: e.zona_nombre
+          }
+        })
+        res.render('reporte', { username, entidad, nombreEntidad })
         break
       case 'empleados-y-horarios':
-        datos = await reporteModel.empleadosYHorarios()
-        res.render('reporte6', { username, datos })
+        entidad = await reporteModel.empleadosYHorarios()
+        res.render('reporte', { username, entidad, nombreEntidad })
         break
       case 'empleados-y-proyectos':
-        datos = await reporteModel.empleadosYProyectos()
-        res.render('reporte7', { username, datos })
+        entidad = await reporteModel.empleadosYProyectos()
+        res.render('reporte', { username, entidad, nombreEntidad })
         break
       default:
         res.status(404).send('Reporte no encontrado')
@@ -61,10 +62,13 @@ export class reporteController {
     const { user } = req.session
     const username = user?.username
 
-    const fechaInicio = req.params.fechaInicio
-    const fechaFin = req.params.fechaFin
+    const fechas = req.params.fechaInicioFin.split('&')
+    const fechaInicio = fechas[0]
+    const fechaFin = fechas[1]
+    const reporte = 'pagos-a-proveedores'
+    const nombreEntidad = reporte.split('-').join(' ')
 
-    const datos = await reporteModel.pagosAProveedores(fechaInicio, fechaFin)
-    res.render('reporte3', { username, datos })
+    const entidad = await reporteModel.pagosAProveedores(fechaInicio, fechaFin)
+    res.render('reporte3', { username, entidad, nombreEntidad })
   }
 }

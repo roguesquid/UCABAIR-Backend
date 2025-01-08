@@ -8,6 +8,10 @@ import cors from 'cors'
 import { AuthController } from './controller/auth.js'
 import { controllerAvion } from './controller/avion.js'
 import { reporteController } from './controller/reporte.js'
+import { controllerRol } from './controller/rol.js'
+import { controllerEmpleado } from './controller/empleado.js'
+import { controllerProveedor } from './controller/proveedor.js'
+import { controllerPrueba } from './controller/prueba.js'
 
 const app = express()
 
@@ -59,17 +63,45 @@ app.get('/registrar-cliente-juridico', (req, res) => {
 
 app.post('/cliente_juridico', controllerClienteJuridico.crearClienteJuridico)
 
-// AVIONES
-app.get('/aviones', controllerAvion.obtenerRuta)
+// MODELO AVION
+app.get('/avion', controllerAvion.obtenerRuta)
+app.post('/avion', controllerAvion.crearAvion) // Create avion
+// app.get('/avion/:id', controllerAvion.obtenerAvion) // Read avion
+// app.put('/avion/:id', controllerAvion.actualizarAvion) // Update avion
+app.post('/avion/:id/eliminar', controllerAvion.eliminarAvion) // Delete avion
 
-// app.get('/aviones/agregar', controllerAvion.obtenerAgregarAvion)
-// app.get('/aviones/:id/modificar', controllerAvion.modificarAvion)
-app.post('/aviones/:id/eliminar', controllerAvion.eliminarAvion)
+// TIPO PRUEBAS
+app.get('/prueba', controllerPrueba.obtenerRuta)
+app.post('/prueba', controllerPrueba.crearPrueba) // Create Tipo Prueba
+// app.get('/prueba/:id', controllerPrueba.obtenerPrueba) // Read Tipo Prueba
+// app.put('/prueba/:id', controllerPrueba.actualizarPrueba) // Update Tipo Prueba
+app.post('/prueba/:id/eliminar', controllerPrueba.eliminarPrueba) // Delete Tipo Prueba
+
+// PROVEEDORES
+app.get('/proveedor', controllerProveedor.obtenerRuta)
+app.post('/proveedor', controllerProveedor.crearProveedor) // Create Proveedor
+// app.get('/proveedor/:id', controllerProveedor.obtenerProveedor) // Read Proveedor
+// app.put('/proveedor/:id', controllerProveedor.actualizarProveedor) // Update Proveedor
+app.post('/proveedor/:id/eliminar', controllerProveedor.eliminarProveedor) // Delete Proveedor
+
+// Empleados
+app.get('/empleado', controllerEmpleado.obtenerRuta)
+app.post('/empleado', controllerEmpleado.crearEmpleado) // Create Empleado
+// app.get('/empleado/:id', controllerEmpleado.obtenerEmpleado) // Read Empleado
+// app.put('/empleado/:id', controllerEmpleado.actualizarEmpleado) // Update Empleado
+app.post('/empleado/:id/eliminar', controllerEmpleado.eliminarEmpleado) // Delete Empleado
+
+// Roles
+app.get('/rol', controllerRol.obtenerRuta)
+app.post('/rol', controllerRol.crearRol) // Create Rol
+// app.get('/rol/:id', controllerRol.obtenerRol) // Read Rol
+// app.put('/rol/:id', controllerRol.actualizarRol) // Update Rol
+app.post('/rol/:id/eliminar', controllerRol.eliminarRol) // Delete Rol
 
 // REPORTES
 app.get('/reportes', reporteController.devolverPagina)
 app.get('/reportes/:reporteNombre', reporteController.devolverReportePagina)
-app.get('/reportes/:reporteNombre/:fechaInicio/:fechaFin', reporteController.getProveedoresYProductos)
+app.get('/reportes/pagos-a-proveedores/:fechaInicioFin', reporteController.getProveedoresYProductos)
 
 app.listen(3000, () => {
   console.log(`Server is running on port http://localhost:${PORT}`)

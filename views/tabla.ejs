@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aviones</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.2.0/css/dataTables.bootstrap5.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.0/js/dataTables.bootstrap5.js"></script>
+    
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+    <% if (typeof username !== 'undefined') { %> <%- include('header') %> <%-
+    include('side-bar') %>
+    <main>
+      <h1><%= nombreEntidad.toUpperCase() %></h1>
+      <section>
+        <button class="btn btn-primary" id="crearNuevo" data-bs-toggle="modal" data-bs-target="#modal<%=nombreEntidad%>">Crear Nuevo</button>
+        <table id="contenido" class="table table-striped" style="width: 100%">
+          <thead>
+            <tr>
+              <% Object.keys(entidad[0]).forEach(element => { %>
+              <th><%= element%></th>
+              <% }) %>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% entidad.forEach((element, index) => { %>
+            <tr>
+              <% Object.keys(element).forEach(key => { %>
+              <td><%= element[key] %></td>
+              <% }) %>
+              <td>
+                <button
+                  class="btn btn-outline-warning"
+                  id=""
+                  onclick="modifyEntidad(<%= element.id %>,<%= element?.tipo %>)"
+                >
+                  Modificar
+                </button>
+                <button
+                  class="btn btn-danger"
+                  onclick="deleteEntidad(<%= element.id %>,<%= element?.tipo %>)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+      </div>
+
+      <!-- modal avion -->
+      <div class="modal" id="modalavion">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Crear o Modificar <%= nombreEntidad %></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="formAvion">
+                <label for="">Nombre: </label>
+                <input type="text" name="nombre" id="nombreModelo" placeholder="" required maxlength="50" class="form-control">
+                <label for="">Descripcion</label>
+                <textarea id="descripcionModelo" name="descripcion" cols="30" rows="10" placeholder="Añade una descripción corta" maxlength="200"  class="form-control"></textarea>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary" onclick="guardarAvion()">Guardar Cambios</button>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <!-- modal prueba -->
+      <div class="modal" id="modalprueba">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Crear o Modificar <%= nombreEntidad %></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="formPrueba">
+                <label for="">Nombre</label>
+                <input id="nombrePrueba" class="form-control" type="text" required maxlength="50" name="nombre">
+                <label for="">Duracion</label>
+                <input id="duracionPrueba" class="form-control" type="text" required placeholder="HHH:MM:SS" name="duracion" pattern="[0-9]{3}:[0-9]{2}:[0-9]{2}">
+                <label for="">Zona de la prueba:</label>
+                <select name="zona" id="zonaPrueba">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <label for="">Tipo</label>
+                <select id="tipoPrueba" name="tipo" id="">
+                  <option value="pieza">pieza</option>
+                  <option value="material">material</option>
+                  <option value="avion">avion</option>
+                </select>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary" onclick="guardarPrueba()">Guardar Cambios</button>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <!-- modal proveedor -->
+      <div class="modal" id="modalproveedor">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Crear o Modificar <%= nombreEntidad %></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="formProveedor">
+                <label for="">Calificacion</label>
+                <input id="calificacionProveedor" name="calificacion" class="form-control" type="number" min="0" max="10" required>
+                <label for="">Nombre</label>
+                <input id="nombreProveedor" class="form-control" type="text" maxlength="50" required>
+                <label for="">Rif</label>
+                <input id="rifProveedor" class="form-control" type="text" maxlength="20" required>
+                <label for="">Pagina Web</label>
+                <input id="paginaWebProveedor" class="form-control" type="text" maxlength="50" required>
+                <label for="">Direccion</label>
+                <input id="direccionProveedor" class="form-control" type="text" maxlength="50" required>
+                <div class="campo">
+                  <label for="estado">Estado: </label>
+                  <select name="estado" id="estadoP" class="form-select"></select>
+                </div>
+                <div class="campo">
+                  <label for="municipio">Municipio: </label>
+                  <select disabled name="municipio" id="municipioP" class="form-select"></select>
+                </div>
+                <div class="campo">
+                  <label for="parroquia">Parroquia: </label>
+                  <select disabled name="parroquia" id="parroquiaP" class="form-select"></select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary" onclick="guardarProveedor()">Guardar Cambios</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal empleado -->
+      <div class="modal" id="modalempleado">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Crear o Modificar <%= nombreEntidad %></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/<%= nombreEntidad %>/modificar" method="POST">
+                <label for="">Cedula</label>
+                <input id="cedulaEmpleado" name="cedula" class="form-control" type="number" required>
+                <label for="">Nombre</label>
+                <input id="nombreEmpleado" name="nombre" class="form-control" type="text" maxlength="30" required>
+                <label for="">Segundo Nombre</label>
+                <input id="sNombreEmpleado" name="sNombre" class="form-control" type="text" maxlength="30">
+                <label for="">Apellido</label>
+                <input id="apellidoEmpleado" name="apellido" class="form-control" type="text" maxlength="30" required>
+                <label for="">Segundo Apellido</label>
+                <input id="sApellidoEmpleado" name="sApellido" class="form-control" type="text" maxlength="30">
+                <label for="">Fecha de Nacimiento</label>
+                <input id="fechaNacEmpleado" name="fechaNac" class="form-control" type="date" required>
+                <label for="">Direccion</label>
+                <textarea id="direccionEmpleado" name="direccion" class="form-control" name="" id="" maxlength="70" required></textarea>
+                <label for="">Rif</label>
+                <input id="rifEmpleado" name="rif" class="form-control" type="text" maxlength="20" required>
+                <label for="">Experiencia Profesional</label>
+                <textarea id="experienciaEmpleado" name="experiencia" class="form-control" name="" id="" maxlength="200" required></textarea>
+                <div class="campo">
+                  <label for="estado">Estado: </label>
+                  <select name="estado" id="estado" class="form-select"></select>
+                </div>
+                <div class="campo">
+                  <label for="municipio">Municipio: </label>
+                  <select disabled name="municipio" id="municipio" class="form-select"></select>
+                </div>
+                <div class="campo">
+                  <label for="parroquia">Parroquia: </label>
+                  <select disabled name="parroquia" id="parroquia" class="form-select"></select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary" onclick="guardarEmpleado()">Guardar Cambios</button>
+            </div>
+          </div>
+        </div>   
+      </div>
+      <!-- modal rol -->
+      <div class="modal" id="modalrol">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Crear o Modificar <%= nombreEntidad %></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <label for="">Nombre</label>
+                <input class="form-control" id="nombreRol" name="nombre" type="text" required maxlength="50">
+                <label for="">Descripcion</label>
+                <textarea class="form-control" id="descripcionRol" name="descripcion" name="" cols="30" rows="10" required maxlength="300"></textarea>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary" onclick="guardarRol()">Guardar Cambios</button>
+            </div>
+          </div>
+        </div>   
+      </div>
+    </main>
+    <% } %> <% if (typeof username === 'undefined') { %> <%-
+    include('no-permiso') %> <% } %>
+    <script>
+      new DataTable("#contenido");
+
+      function deleteEntidad(id, tipoP) {
+        if (tipoP) {
+          fetch(`/<%= nombreEntidad %>/${id}/eliminar`, {
+            method: "POST",
+            body: JSON.stringify({ tipo: tipoP }),
+          })
+            .then((response) => {
+              if (response.ok) {
+                alert(`<%= nombreEntidad %> eliminado exitosamente`);
+                window.location.reload();
+              } else {
+                alert(`Error al eliminar el <%= nombreEntidad %>`);
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        }
+        fetch(`/<%= nombreEntidad %>/${id}/eliminar`, {
+          method: "POST",
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert(`<%= nombreEntidad %> eliminado exitosamente`);
+              window.location.reload();
+            } else {
+              alert(`Error al eliminar el <%= nombreEntidad %>`);
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      function modifyEntidad(id) {
+        // window.location.href = `/<%= nombreEntidad %>/${id}/modificar`;
+      }
+
+      // document
+      //   .getElementById("crearNuevo")
+      //   .addEventListener("click", createEntidad);
+
+      //CARGAR ESTADOS, MUNICIPIOS Y PARROQUIAS
+      const estadoSelect = document.getElementById("estado");
+      const municipioSelect = document.getElementById("municipio");
+      const parroquiaSelect = document.getElementById("parroquia");
+      const estadopSelect = document.getElementById("estadoP");
+      const municipiopSelect = document.getElementById("municipioP");
+      const parroquiapSelect = document.getElementById("parroquiaP");
+
+      let estados = [];
+      let municipios = [];
+      let parroquias = [];
+
+      let parroquiaSeleccionada;
+
+      const fetchEstados = async () => {
+        const response = await fetch("http://127.0.0.1:3000/lugar/estado");
+        const data = await response.json();
+        console.log(data)
+        data.forEach((estado) => {
+          estados.push(estado);
+          const option1 = document.createElement("option");
+          const option2 = document.createElement("option");
+          option1.value = estado.lugar_nombre;
+          option1.textContent = estado.lugar_nombre;
+          option2.value = estado.lugar_nombre;
+          option2.textContent = estado.lugar_nombre;
+          estadoSelect.appendChild(option1);
+          estadopSelect.appendChild(option2);
+        });
+      };
+      fetchEstados();
+
+      const fetchMunicipios = async (estadoId) => {
+        const response = await fetch(
+          `http://127.0.0.1:3000/lugar/${estadoId}/municipio`
+        );
+        const data = await response.json();
+        data.forEach((municipio) => {
+          municipios.push(municipio);
+          const option = document.createElement("option");
+          option.value = municipio.lugar_nombre;
+          option.textContent = municipio.lugar_nombre;
+          const option2 = document.createElement("option");
+          option2.value = municipio.lugar_nombre;
+          option2.textContent = municipio.lugar_nombre;
+          municipioSelect.appendChild(option);
+          municipiopSelect.appendChild(option2);
+        });
+      };
+
+      const fetchParroquias = async (municipioId) => {
+        const response = await fetch(
+          `http://127.0.0.1:3000/lugar/${municipioId}/parroquia`
+        );
+        const data = await response.json();
+        data.forEach((municipio) => {
+          parroquias.push(municipio);
+          const option = document.createElement("option");
+          const option2 = document.createElement("option");
+          option.value = municipio.lugar_nombre;
+          option.textContent = municipio.lugar_nombre;
+          option2.value = municipio.lugar_nombre;
+          option2.textContent = municipio.lugar_nombre;
+          parroquiaSelect.appendChild(option);
+          parroquiapSelect.appendChild(option2);
+        });
+      };
+
+      estadoSelect.addEventListener("change", (e) => {
+        const estado = estados.find(
+          (estado) => estado.lugar_nombre === e.target.value
+        );
+        fetchMunicipios(estado.lugar_codigo);
+        // le quito el disabled al select
+        municipioSelect.removeAttribute("disabled");
+        municipiopSelect.removeAttribute("disabled");
+      });
+      
+      estadopSelect.addEventListener("change", (e) => {
+        const estado = estados.find(
+          (estado) => estado.lugar_nombre === e.target.value
+        );
+        fetchMunicipios(estado.lugar_codigo);
+        // le quito el disabled al select
+        municipioSelect.removeAttribute("disabled");
+        municipiopSelect.removeAttribute("disabled");
+      });
+
+      municipioSelect.addEventListener("change", (e) => {
+        const municipio = municipios.find(
+          (municipio) => municipio.lugar_nombre === e.target.value
+        );
+        fetchParroquias(municipio.lugar_codigo);
+        // le quito el disabled al select
+        parroquiaSelect.removeAttribute("disabled");
+        parroquiapSelect.removeAttribute("disabled");
+      });
+
+      municipiopSelect.addEventListener("change", (e) => {
+        const municipio = municipios.find(
+          (municipio) => municipio.lugar_nombre === e.target.value
+        );
+        fetchParroquias(municipio.lugar_codigo);
+        // le quito el disabled al select
+        parroquiaSelect.removeAttribute("disabled");
+        parroquiapSelect.removeAttribute("disabled");
+      });
+
+      function guardarAvion() {
+        const form = document.getElementById("formAvion");
+        const nombre = document.getElementById("nombreModelo").value;
+        const descripcion = document.getElementById("descripcionModelo").value;
+
+        
+        const avion = {
+          nombre: nombre,
+          descripcion: descripcion
+        };
+
+        console.log(nombre);
+        console.log(descripcion);
+
+        console.log(avion);
+
+        fetch("/avion", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(avion),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Avion creado exitosamente");
+              window.location.reload();
+            } else {
+              alert("Error al crear el avion");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+      function guardarPrueba() {
+        const nombre = document.getElementById("nombrePrueba").value;
+        const duracion = document.getElementById("duracionPrueba").value;
+        const tipo = document.getElementById("tipoPrueba").value;
+        const zona = document.getElementById("zonaPrueba").value;
+        const prueba = {
+          nombre,
+          duracion,
+          tipo,
+          zona,
+        };
+
+        fetch("/prueba", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(prueba),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Prueba creada exitosamente");
+              window.location.reload();
+            } else {
+              alert("Error al crear la prueba");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+      function guardarProveedor(){
+        const razonSocial = document.getElementById("nombreProveedor").value;
+        const calificacion = document.getElementById("calificacionProveedor").value;
+        const rif = document.getElementById("rifProveedor").value;
+        const paginaWeb = document.getElementById("paginaWebProveedor").value;
+        const direccion = document.getElementById("direccionProveedor").value;
+        const estado = document.getElementById("estadoP").value;
+        const municipio = document.getElementById("municipioP").value;
+        const parroquia = document.getElementById("parroquiaP").value;
+        const proveedor = {
+          razonSocial,
+          calificacion,
+          rif,
+          paginaWeb,
+          direccion,
+          estado,
+          municipio,
+          parroquia,
+        };
+
+        fetch("/proveedor", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(proveedor),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Proveedor creado exitosamente");
+              window.location.reload();
+            } else {
+              alert("Error al crear el proveedor");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+      function guardarEmpleado() {
+        const nombre = document.getElementById("nombreEmpleado").value;
+        const sNombre = document.getElementById("sNombreEmpleado").value;
+        const apellido = document.getElementById("apellidoEmpleado").value;
+        const sApellido = document.getElementById("sApellidoEmpleado").value;
+        const cedula = document.getElementById("cedulaEmpleado").value;
+        const fechaNac = document.getElementById("fechaNacEmpleado").value;
+        const direccion = document.getElementById("direccionEmpleado").value;
+        const rif = document.getElementById("rifEmpleado").value;
+        const experiencia = document.getElementById("experienciaEmpleado").value;
+        const parroquia = document.getElementById("parroquia").value;
+
+        fetch("/empleado", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nombre,
+            sNombre,
+            apellido,
+            sApellido,
+            cedula,
+            fechaNac,
+            direccion,
+            rif,
+            experiencia,
+            parroquia,
+          }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Empleado creado exitosamente");
+              window.location.reload();
+            } else {
+              alert("Error al crear el empleado");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+      function guardarRol() {
+        const rol = {
+          nombre: document.getElementById("nombreRol").value,
+          descripcion: document.getElementById("descripcionRol").value,
+        };
+        fetch("/rol", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(rol),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Rol creado exitosamente");
+              window.location.reload();
+            } else {
+              alert("Error al crear el rol");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+    </script>
+  </body>
+</html>
