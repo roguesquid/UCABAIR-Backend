@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aviones</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.2.0/css/dataTables.bootstrap5.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.0/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.0/js/dataTables.bootstrap5.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+    <% if (typeof username !== 'undefined') { %> <%- include('header') %> <%-
+    include('side-bar') %>
+    <main>
+      <h1>Solicitud de compra a proveedores</h1>
+      <section>
+        <form action="">
+          <label for="">Proveedor</label>
+          <select name="" id=""></select>
+          <label for="">Producto</label>
+          <select disabled name="" id=""></select>
+        </form>
+      </section>
+    </main>
+    <% } %> <% if (typeof username === 'undefined') { %> <%-
+    include('no-permiso') %> <% } %>
+  </body>
+  <script>
+    function llenarProveedores() {
+      fetch("/proveedores")
+        .then((res) => res.json())
+        .then((data) => {
+          const select = document.querySelector("select");
+          data.forEach((element) => {
+            const option = document.createElement("option");
+            option.value = element.id;
+            option.textContent = element.nombre;
+            select.appendChild(option);
+          });
+        });
+    }
+  </script>
+</html>
