@@ -116,7 +116,7 @@ UCABAIR-Backend/
 
 1. Clone the repository:
     ```sh
-    git clone <repository-url>
+    git clone [<repository-url>](https://github.com/roguesquid/UCABAIR-Backend)
     ```
 2. Install dependencies:
     ```sh
@@ -125,7 +125,7 @@ UCABAIR-Backend/
 3. Create a `.env` file and configure your environment variables.
 4. Start the server:
     ```sh
-    pnpm dev
+    pnpm run dev
     ```
 
 ## License
