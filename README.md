@@ -116,7 +116,7 @@ UCABAIR-Backend/
 
 1. Clone the repository:
     ```sh
-    git clone [<repository-url>](https://github.com/roguesquid/UCABAIR-Backend)
+    git clone https://github.com/roguesquid/UCABAIR-Backend
     ```
 2. Install dependencies:
     ```sh
@@ -130,15 +130,11 @@ UCABAIR-Backend/
 
 ## License
 
-This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Contributions
 
 Contributions are welcome! Please open an issue or submit a pull request for any changes or enhancements.
-
-## Contact
-
-For any inquiries, please contact the author at [email@example.com].
 
 ---
 
